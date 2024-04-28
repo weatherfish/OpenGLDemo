@@ -14,14 +14,10 @@
                 "-o",
                 "${workspaceFolder}/build/${fileBasenameNoExtension}",
                 "-framework",
-                "OpenGL",
-                "-C",
-                "${workspaceFolder}/wrapper",
-                "-C",
-                "${workspaceFolder}/applicaiton"
+                "OpenGL"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}"
             },
             "problemMatcher": [
                 "$gcc"

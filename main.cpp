@@ -174,7 +174,7 @@ int main()
         else
             increment = 0.05;
         
-        r+=increment;
+        r += increment;
     }
 
     // 清理资源
