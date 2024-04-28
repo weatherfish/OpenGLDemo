@@ -122,7 +122,7 @@ int main()
 //     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallBack);
 //     glfwSetKeyCallback(window, keyCallback);
 //     //设置刷新
-//     glfwSwapInterval(1);
+    glfwSwapInterval(1);
 
     // 创建并绑定VAO
     unsigned int vao;
