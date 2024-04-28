@@ -100,7 +100,7 @@ unsigned int indices[] = {
     2, 3, 0
 };
 
-void frameBufferSizeCallBack(GLFWwindow *window, int width, int height){
+void frameBufferSizeCallBack(int width, int height){
     std::cout<<" width = "<<width<<" height = "<<height<<std::endl;
 }
 
@@ -119,7 +119,7 @@ int main()
     }
 
 //     //设置监听
-//     glfwSetFramebufferSizeCallback(window, frameBufferSizeCallBack);
+    app->setResizeCallback(frameBufferSizeCallBack);
 //     glfwSetKeyCallback(window, keyCallback);
 //     //设置刷新
     glfwSwapInterval(1);

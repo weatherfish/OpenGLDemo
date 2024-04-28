@@ -2,6 +2,26 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "(lldb) 附加",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/build/${fileBasenameNoExtension}",
+            "MIMode": "lldb"
+        },
+        {
+            "name": "(lldb) 启动",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        },
+        
+        {
             "name": "C/C++: clang++ 生成和调试活动文件",
             "type": "cppdbg",
             "request": "launch",

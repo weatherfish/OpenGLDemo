@@ -42,6 +42,10 @@ bool Application::init(const uint32_t width, const uint32_t height){
         return false;
     }
 
+    glfwSetFramebufferSizeCallback(window, realFbResizeCallback);
+
+    glfwSetWindowUserPointer(window, this);
+
     return true;
 }
 
@@ -60,8 +64,14 @@ void Application::destory(){
     glfwTerminate();
 }
 
+void Application::realFbResizeCallback(GLFWwindow* window, int width, int height){
+    Application *self = (Application *)glfwGetWindowUserPointer(window);
+    self->frameBufferResizeCallback(width, height);
+}
+
 Application::Application()
 {
+    
 }
 
 Application::~Application()
