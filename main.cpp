@@ -171,7 +171,7 @@ int main()
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         if(r > 1.0f)
             increment = -0.05;
-        else
+        else if(r < 0.0f)
             increment = 0.05;
         
         r += increment;
