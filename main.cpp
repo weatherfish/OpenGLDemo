@@ -104,7 +104,7 @@ void frameBufferSizeCallBack(int width, int height){
     std::cout<<" width = "<<width<<" height = "<<height<<std::endl;
 }
 
-void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods){
+void keyCallback(int key, int scancode, int action, int mods){
     if(key == GLFW_KEY_ESCAPE){
         exit(0);
     }
@@ -120,7 +120,7 @@ int main()
 
 //     //设置监听
     app->setResizeCallback(frameBufferSizeCallBack);
-//     glfwSetKeyCallback(window, keyCallback);
+   app-> setKeyCallback(keyCallback);
 //     //设置刷新
     glfwSwapInterval(1);
 
