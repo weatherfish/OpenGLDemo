@@ -1,43 +1,37 @@
 {
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: clang++ 生成活动文件",
-            "command": "/usr/bin/clang++",
+            "type": "shell",
+            "label": "CMake",
+            "command": "cmake",
             "args": [
-                "-lGLEW",
-                "-lGLFW",
-                "-fcolor-diagnostics",
-                "-fansi-escape-codes",
-                "-g",
-                "${file}",
-                "-o",
-                "${workspaceFolder}/build/${fileBasenameNoExtension}",
-                "-framework",
-                "OpenGL"
+                ".."
             ],
             "options": {
-                "cwd": "${workspaceFolder}"
-            },
-            "problemMatcher": [
-                "$gcc"
-            ],
+                "cwd": "${workspaceFolder}/build"
+            }
+        },
+        {
+            "type": "shell",
+            "label": "make",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "调试器生成的任务。"
-        },
-        {
-            "type": "cmake",
-            "label": "CMake: 生成",
-            "command": "build",
-            "targets": [
-                "{workspaceFolder}/wrapper"
+            "command": "make",
+            "args": [
+            
             ],
-            "group": "build",
-            "problemMatcher": [],
-            "detail": "CMake 模板 生成 任务"
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
+        },{
+            "label": "Build",
+            "dependsOrder": "sequence",
+            "dependsOn":[
+                "CMake",
+                "make"
+            ]
         }
     ],
     "version": "2.0.0"
