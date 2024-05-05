@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "../glFramework/core.h"
 
 /**
  * 当前应用本身

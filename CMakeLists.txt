@@ -35,12 +35,13 @@ add_definitions(-DDEBUG)
 
 add_subdirectory(wrapper)
 add_subdirectory(applicaiton)
+add_subdirectory(glFramework)
 
-file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/res DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/assets DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 file(GLOB SOURCE_FILES "*.cpp")
 
 add_executable(CGL3DDemo ${SOURCE_FILES})
 
 target_link_libraries(CGL3DDemo "-framework OpenGL")
 target_link_libraries(CGL3DDemo "-framework GLUT")
-target_link_libraries(CGL3DDemo wrapper applicaiton)
+target_link_libraries(CGL3DDemo wrapper applicaiton glFramework)

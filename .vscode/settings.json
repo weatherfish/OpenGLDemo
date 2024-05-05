@@ -69,6 +69,10 @@
         "format": "cpp",
         "stop_token": "cpp",
         "thread": "cpp",
-        "*.ipp": "cpp"
+        "*.ipp": "cpp",
+        "__hash_table": "cpp",
+        "__node_handle": "cpp",
+        "complex": "cpp",
+        "fstream": "cpp"
     }
 }
