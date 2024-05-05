@@ -41,6 +41,39 @@ void render(){
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
+ unsigned int vao;
+ unsigned int vbo;
+ unsigned int ebo;
+
+void prepare(){
+ // 创建并绑定VAO
+   
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    // 创建并绑定VBO
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // 创建并绑定EBO
+    glGenBuffers(1, &ebo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // 配置顶点属性指针
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+
+    glEnableVertexAttribArray(1);
+    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),(void*)0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6* sizeof(float), (void*)(3* sizeof(float)));
+
+    // ShaderProgremSource source = parseShader("res/shader/basic.glsl");
+
+    // int location = glGetUniformLocation(progrem, "u_Color");
+}
+
 int main()
 {
   
@@ -60,34 +93,8 @@ int main()
     Shader *shader = new Shader(basic_v.c_str(), basic_f.c_str());
 
     shader->begin();
-    // 创建并绑定VAO
-    unsigned int vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
 
-    // 创建并绑定VBO
-    unsigned int vbo;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // 创建并绑定EBO
-    unsigned int ebo;
-    glGenBuffers(1, &ebo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // 配置顶点属性指针
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
-
-    glEnableVertexAttribArray(1);
-    // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),(void*)0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6* sizeof(float), (void*)(3* sizeof(float)));
-
-    // ShaderProgremSource source = parseShader("res/shader/basic.glsl");
-
-    // int location = glGetUniformLocation(progrem, "u_Color");
+    prepare();
 
      // 渲染循环
     while (app->update())
