@@ -28,19 +28,8 @@ void keyCallback(int key, int scancode, int action, int mods){
     }
 }
 
-void render(){
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        
-        // glFrontFace(GL_CW);
-        // glCullFace(GL_CULL_FACE);
-        // glEnable(GL_CULL_FACE);
-        // glEnable(GL_DEPTH_TEST);
 
-        // glUniform4f(location, 0.2, 0.3f, 0.8f, 1.0f);
-        // 绘制三角形
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-}
-
+ Shader *shader = nullptr;
  unsigned int vao;
  unsigned int vbo;
  unsigned int ebo;
@@ -68,10 +57,22 @@ void prepare(){
     glEnableVertexAttribArray(1);
     // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),(void*)0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6* sizeof(float), (void*)(3* sizeof(float)));
+}
 
-    // ShaderProgremSource source = parseShader("res/shader/basic.glsl");
+void render(){
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+    shader->begin();
+    shader->setFloat("time", glfwGetTime());
 
-    // int location = glGetUniformLocation(progrem, "u_Color");
+    // glFrontFace(GL_CW);
+    // glCullFace(GL_CULL_FACE);
+    // glEnable(GL_CULL_FACE);
+    // glEnable(GL_DEPTH_TEST);
+
+    // glUniform4f(location, 0.2, 0.3f, 0.8f, 1.0f);
+    // 绘制三角形
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 int main()
@@ -90,7 +91,7 @@ int main()
     std::string basic_v = "assets/shader/basic_vertex.glsl";
     std::string basic_f = "assets/shader/basic_fragment.glsl";
 
-    Shader *shader = new Shader(basic_v.c_str(), basic_f.c_str());
+    shader = new Shader(basic_v.c_str(), basic_f.c_str());
 
     shader->begin();
 

@@ -53,6 +53,12 @@ void Shader::end(){
     GLCall(glUseProgram(0));
 }
 
+void Shader::setFloat(const std::string& name, float value){
+    int location = glGetUniformLocation(progrem, name.c_str());
+    GLCall(glUniform1f(location, value));
+}
+
+
 unsigned int Shader::CompileShader(const std::string& source, unsigned int type)
 {
     unsigned int id = glCreateShader(type);

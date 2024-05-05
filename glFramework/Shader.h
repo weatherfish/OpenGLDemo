@@ -29,6 +29,8 @@ public:
 
     void end(); //结束使用
 
+    void setFloat(const std::string& name, float value);
+
     unsigned int CompileShader(const std::string& source, unsigned int type);
 
     unsigned int CreateShader(const std::string& vertexShader, const std::string& fragShader);
