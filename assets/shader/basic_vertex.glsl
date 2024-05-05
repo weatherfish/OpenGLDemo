@@ -10,5 +10,5 @@ out vec3 vColor;
 void main()
 {
     gl_Position=aPosition;
-    vColor = aColor * (sin(time) + 1.0f)/2.0f;
+    vColor = aColor * (cos(time) + 1.0f)/2.0f;
 }
