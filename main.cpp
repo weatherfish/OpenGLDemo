@@ -64,6 +64,7 @@ void render(){
         
     shader->begin();
     shader->setFloat("time", glfwGetTime());
+    shader->setFloat("speed", 10.0);
 
     // glFrontFace(GL_CW);
     // glCullFace(GL_CULL_FACE);
