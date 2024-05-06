@@ -64,7 +64,7 @@ void render(){
         
     shader->begin();
     shader->setFloat("time", glfwGetTime());
-    shader->setFloat("speed", 10.0);
+    shader->setFloat("speed", 2.0);
 
     // glFrontFace(GL_CW);
     // glCullFace(GL_CULL_FACE);
@@ -108,6 +108,7 @@ int main()
     glDeleteBuffers(1, &vbo);
     glDeleteBuffers(1, &ebo);
     glDeleteVertexArrays(1, &vao);
+
     app->destory();
 
     return 0;
