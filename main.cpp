@@ -4,12 +4,15 @@
 #include "applicaiton/application.h"
 #include "glFramework/Shader.h"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "applicaiton/stb_image.h"
+
 // 顶点数据
 float vertices[] = {
-    -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,// 左下角
-     0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,// 右下角
-     0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,// 右上
-     -0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, // 左上
+    -0.5f, -0.5f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
+     0.5f, -0.5f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
+     0.5f,  0.5f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
+     -0.5f, 0.5f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
 };
 
 // 索引数据
@@ -33,6 +36,7 @@ void keyCallback(int key, int scancode, int action, int mods){
  unsigned int vao;
  unsigned int vbo;
  unsigned int ebo;
+ unsigned int texture;
 
 void prepare(){
  // 创建并绑定VAO
@@ -52,11 +56,44 @@ void prepare(){
 
     // 配置顶点属性指针
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3* sizeof(float)));
+
+    glEnableVertexAttribArray(2);
     // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float),(void*)0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6* sizeof(float), (void*)(3* sizeof(float)));
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5* sizeof(float)));
+}
+
+void  prepareTexture()
+{
+    int width, height, channels;
+
+    ///翻转y轴
+    stbi_set_flip_vertically_on_load(true);
+
+    unsigned char* data = stbi_load("assets/textures/1.png", &width, &height, &channels, STBI_rgb_alpha);
+    // unsigned char* data = stbi_load("assets/textures/2.jpg", &width, &height, &channels, STBI_rgb_alpha);
+
+    //生成纹理
+    glGenTextures(1, &texture);
+    //激活纹理单元 0-15
+    glActiveTexture(GL_TEXTURE0);
+    //绑定纹理对象
+    glBindTexture(GL_TEXTURE_2D, texture);
+    //传输纹理数据  同时会开辟显存
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+
+    //释放数据
+    stbi_image_free(data);
+    //设置纹理过滤
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //大于使用线性插值
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //小于取附近值
+
+    //设置纹理包裹
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
 }
 
 void render(){
@@ -66,6 +103,8 @@ void render(){
     shader->setFloat("time", glfwGetTime());
     shader->setFloat("speed", 2.0);
 
+     shader->setInt("sampler", 0);
+
     // glFrontFace(GL_CW);
     // glCullFace(GL_CULL_FACE);
     // glEnable(GL_CULL_FACE);
@@ -74,6 +113,8 @@ void render(){
     // glUniform4f(location, 0.2, 0.3f, 0.8f, 1.0f);
     // 绘制三角形
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+     shader->end();
 }
 
 int main()
@@ -97,6 +138,7 @@ int main()
     shader->begin();
 
     prepare();
+    prepareTexture();
 
      // 渲染循环
     while (app->update())

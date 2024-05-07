@@ -65,6 +65,12 @@ void Shader::setFloat(const std::string& name, float x, float y, float z)
     GLCall(glUniform3f(location, x, y, z));
 }
 
+void Shader::setInt(const std::string& name, int value)
+{
+    int location = glGetUniformLocation(progrem, name.c_str());
+    GLCall(glUniform1i(location, value));
+}
+
 void Shader::setMat(const std::string &name, float data[], int count)
 {
     int location = glGetUniformLocation(progrem, name.c_str());

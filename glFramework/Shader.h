@@ -33,6 +33,8 @@ public:
 
     void setFloat(const std::string& name, float x, float y, float z);
 
+    void setInt(const std::string& name, int value);
+
     void setMat(const std::string &name, float data[], int count);
 
     unsigned int CompileShader(const std::string& source, unsigned int type);
