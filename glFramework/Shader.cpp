@@ -53,9 +53,22 @@ void Shader::end(){
     GLCall(glUseProgram(0));
 }
 
-void Shader::setFloat(const std::string& name, float value){
+void Shader::setFloat(const std::string& name, float value)
+{
     int location = glGetUniformLocation(progrem, name.c_str());
     GLCall(glUniform1f(location, value));
+}
+
+void Shader::setFloat(const std::string& name, float x, float y, float z)
+{
+    int location = glGetUniformLocation(progrem, name.c_str());
+    GLCall(glUniform3f(location, x, y, z));
+}
+
+void Shader::setMat(const std::string &name, float data[], int count)
+{
+    int location = glGetUniformLocation(progrem, name.c_str());
+    GLCall(glUniform3fv(location, count, data));
 }
 
 

@@ -31,6 +31,10 @@ public:
 
     void setFloat(const std::string& name, float value);
 
+    void setFloat(const std::string& name, float x, float y, float z);
+
+    void setMat(const std::string &name, float data[], int count);
+
     unsigned int CompileShader(const std::string& source, unsigned int type);
 
     unsigned int CreateShader(const std::string& vertexShader, const std::string& fragShader);
