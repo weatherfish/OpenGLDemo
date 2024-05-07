@@ -73,8 +73,8 @@ void  prepareTexture()
     ///翻转y轴
     stbi_set_flip_vertically_on_load(true);
 
-    unsigned char* data = stbi_load("assets/textures/1.png", &width, &height, &channels, STBI_rgb_alpha);
-    // unsigned char* data = stbi_load("assets/textures/2.jpg", &width, &height, &channels, STBI_rgb_alpha);
+    // unsigned char* data = stbi_load("assets/textures/1.png", &width, &height, &channels, STBI_rgb_alpha);
+    unsigned char* data = stbi_load("assets/textures/2.jpg", &width, &height, &channels, STBI_rgb_alpha);
 
     //生成纹理
     glGenTextures(1, &texture);
@@ -120,7 +120,7 @@ void render(){
 int main()
 {
   
-    if( !app->init(800, 600)){
+    if( !app->init(400, 800)){
         return -1;
     }
 
