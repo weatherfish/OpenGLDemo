@@ -30,10 +30,12 @@ Texture::Texture(std::string &path, unsigned int unit)
     //设置纹理过滤
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //大于使用线性插值
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST); //小于取附近值
-
     //设置纹理包裹
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+
+    ///多级渐远纹理
+    
 }
 
 Texture::~Texture()

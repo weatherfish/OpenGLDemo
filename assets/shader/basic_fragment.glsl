@@ -19,7 +19,7 @@ void main()
     vec4 c2 = texture(sampler2, uv);
     vec4 c3 = texture(sampler3, uv);
     float weight = c3.r;
-    // vec4 fc = c1 * weight + c2 * (1 - weight);
     vec4 fc = mix(c1, c2, weight); // -> c1* (1-weight) + c2 * weight
     color = vec4(fc.rgb, 1.0);
+    color = texture(sampler, uv);
 }
