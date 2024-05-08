@@ -30,6 +30,8 @@ void keyCallback(int key, int scancode, int action, int mods){
 }
 
 Texture *texture =nullptr;
+Texture *texture2 =nullptr;
+Texture *texture3 =nullptr;
 Shader *shader = nullptr;
 unsigned int vao;
 unsigned int vbo;
@@ -66,10 +68,11 @@ void prepare(){
 void  prepareTexture()
 {
     std::string path = "assets/textures/1.png";
-    // std::string path = "assets/textures/1.jpg";
-    // std::string path = "assets/textures/2.jpg";
+    std::string path2 = "assets/textures/1.jpg";
+    std::string path3 = "assets/textures/2.jpg";
     texture = new Texture(path, 0);
-    texture->bind();
+    texture2 = new Texture(path2, 1);
+    texture3 = new Texture(path3, 2);
 }
 
 void render(){
@@ -79,7 +82,9 @@ void render(){
     shader->setFloat("time", glfwGetTime());
     shader->setFloat("speed", 2.0);
 
-     shader->setInt("sampler", 0);
+    shader->setInt("sampler", 0);
+    shader->setInt("sampler2", 1);
+    shader->setInt("sampler3", 2);
 
     // glFrontFace(GL_CW);
     // glCullFace(GL_CULL_FACE);
@@ -90,7 +95,7 @@ void render(){
     // 绘制三角形
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-     shader->end();
+    shader->end();
 }
 
 int main()
