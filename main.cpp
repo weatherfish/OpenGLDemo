@@ -66,8 +66,8 @@ void prepare(){
 void  prepareTexture()
 {
     std::string path = "assets/textures/1.png";
-    std::string path = "assets/textures/1.jpg";
-    std::string path = "assets/textures/2.jpg";
+    // std::string path = "assets/textures/1.jpg";
+    // std::string path = "assets/textures/2.jpg";
     texture = new Texture(path, 0);
     texture->bind();
 }
