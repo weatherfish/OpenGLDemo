@@ -19,5 +19,7 @@ void main()
     gl_Position=vec4(aPosition.x, aPosition.y, aPosition.z, 1.0);
     vColor = aColor * (cos(time) + 1.0f)/2.0f;
     position = aPosition.xyz;
-    uv = vec2(aUv.x + deltal, aUv.y);
+    // uv = vec2(aUv.x + deltal, aUv.y);
+    float scale = 1.0 / time;
+    uv = aUv * scale;
 }
