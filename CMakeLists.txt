@@ -15,7 +15,11 @@ else()
     set(GLFW_H /usr/local/Cellar/glfw/3.4/include)
 endif()
 
-include_directories(${GLM_H} ${GLEW_H} ${GLFW_H})
+include_directories(
+    ${GLM_H}
+    ${GLEW_H}
+    ${GLFW_H} 
+)
 
 if(USE_M1  STREQUAL "True")
     set(GLEW_LINK /opt/homebrew/Cellar/glew/2.2.0_1/lib/libGLEW.2.2.dylib)
