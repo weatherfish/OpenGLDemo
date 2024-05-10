@@ -5,7 +5,6 @@
 #include "glFramework/Shader.h"
 #include "glFramework/Texture.h"
 
-
 // 顶点数据
 float vertices[] = {
     -0.5f, -1.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
@@ -37,6 +36,7 @@ Shader *shader = nullptr;
 unsigned int vao;
 unsigned int vbo;
 unsigned int ebo;
+glm::mat4 transform(1.0f);
 
 void prepare(){
  // 创建并绑定VAO
@@ -76,6 +76,13 @@ void  prepareTexture()
     texture3 = new Texture(path3, 2);
 }
 
+float angle = 0.0f;
+void doRotation()
+{
+    transform = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));
+    angle += 0.1f;
+}
+
 void render(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
@@ -86,6 +93,9 @@ void render(){
     shader->setInt("sampler", 0);
     shader->setInt("sampler2", 1);
     shader->setInt("sampler3", 2);
+
+    shader->setMatrix4x4("transform", transform);
+    doRotation();
 
     // glFrontFace(GL_CW);
     // glCullFace(GL_CULL_FACE);
@@ -99,9 +109,18 @@ void render(){
     shader->end();
 }
 
+void do_transform()
+{
+   glm::mat4 r1 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f)); //旋转 以原点为中心旋转
+   glm::mat4 t1 = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.0f, 0.0f));    //平移 
+   glm::mat4 s1 = glm::scale(glm::mat4(1.0f), glm::vec3(0.6f, 1.0f, 1.0f));    //缩放:将点变成原来的多少倍
+
+   ///组合变换，先做的变换位于最右边。 先旋转，再平移
+   transform = t1 * r1;
+}
+
 int main()
 {
-  
     if( !app->init(400, 800)){
         return -1;
     }
@@ -121,6 +140,8 @@ int main()
 
     prepare();
     prepareTexture();
+
+    // do_transform();
 
      // 渲染循环
     while (app->update())

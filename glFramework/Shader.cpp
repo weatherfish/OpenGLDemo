@@ -77,6 +77,16 @@ void Shader::setMat(const std::string &name, float data[], int count)
     GLCall(glUniform3fv(location, count, data));
 }
 
+void Shader::setMatrix4x4(const std::string &name, glm::mat4 value)
+{
+    this->setMatrix4x4(name, value, 1);
+}
+void Shader::setMatrix4x4(const std::string &name, glm::mat4 value, int count)
+{
+    int location = glGetUniformLocation(progrem, name.c_str());
+    GLCall(glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(value)));
+}
+
 
 unsigned int Shader::CompileShader(const std::string& source, unsigned int type)
 {

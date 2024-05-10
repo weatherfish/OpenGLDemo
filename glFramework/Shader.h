@@ -37,6 +37,11 @@ public:
 
     void setMat(const std::string &name, float data[], int count);
 
+    void setMatrix4x4(const std::string &name, glm::mat4 value);
+
+    void setMatrix4x4(const std::string &name, glm::mat4 value, int count);
+
+
     unsigned int CompileShader(const std::string& source, unsigned int type);
 
     unsigned int CreateShader(const std::string& vertexShader, const std::string& fragShader);
