@@ -76,11 +76,21 @@ void  prepareTexture()
     texture3 = new Texture(path3, 2);
 }
 
-float angle = 0.0f;
 void doRotation()
 {
-    transform = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));
-    angle += 0.1f;
+    // transform = glm::rotate(glm::mat4(1.0f), glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));
+    // angle += 0.1f;
+    float angle = 0.1f;
+
+    // transform = glm::rotate(transform, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));//旋转
+
+    ///先平移再旋转
+    // transform = glm::translate(transform, glm::vec3(0.01f, 0.0f, 0.0f));//旋转
+    // transform = glm::rotate(transform, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));//旋转
+
+    ///先旋转再平移
+    transform = glm::rotate(transform, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));//旋转
+    transform = glm::translate(transform, glm::vec3(0.01f, 0.0f, 0.0f));//旋转
 }
 
 void render(){
