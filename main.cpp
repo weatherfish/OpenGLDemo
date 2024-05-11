@@ -5,18 +5,26 @@
 #include "glFramework/Shader.h"
 #include "glFramework/Texture.h"
 
+// // 顶点数据
+// float vertices[] = {
+//     -0.5f, -1.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
+//      0.5f, -1.0f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
+//      0.5f,  1.0f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
+//      -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
+// };
+
 // 顶点数据
 float vertices[] = {
-    -0.5f, -1.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
-     0.5f, -1.0f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
-     0.5f,  1.0f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
-     -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
+    -1.0f,  0.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
+     1.0f,  0.0f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
+     0.0f,  1.0f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
+    //  -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
 };
 
 // 索引数据
 unsigned int indices[] = {
     0, 1, 2, // 三角形的三个顶点索引
-    2, 3, 0
+    // 2, 3, 0
 };
 
 void frameBufferSizeCallBack(int width, int height){
@@ -39,6 +47,7 @@ unsigned int ebo;
 glm::mat4 transform(1.0f);
 glm::mat4 viewMatrix(1.0f);
 glm::mat4 orthoMatrix(1.0f);
+glm::mat4 perpareMatrix(1.0f);
 
 void prepare(){
  // 创建并绑定VAO
@@ -108,7 +117,8 @@ void render(){
 
     shader->setMatrix4x4("transform", transform);
     shader->setMatrix4x4("viewMatrix", viewMatrix);
-    shader->setMatrix4x4("projectMatrix", orthoMatrix);
+    // shader->setMatrix4x4("projectMatrix", orthoMatrix);
+    shader->setMatrix4x4("projectMatrix", perpareMatrix);
     
     // doRotation();
 
@@ -119,7 +129,8 @@ void render(){
 
     // glUniform4f(location, 0.2, 0.3f, 0.8f, 1.0f);
     // 绘制三角形
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
     shader->end();
 }
@@ -136,7 +147,7 @@ void do_transform()
 
 void prepareCamera(){
     ///生成一个viewMatrix, eye:当前摄像机所在位置， center：当前摄像机看向的点，up 穹顶向量用于定义摄像机的垂直方向
-    viewMatrix = glm::lookAt(glm::vec3(0.5f, 0.0f, 0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    viewMatrix = glm::lookAt(glm::vec3(3.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
 void prepareOrtho(){
@@ -144,14 +155,23 @@ void prepareOrtho(){
     orthoMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, -2.0f);
 }
 
+void preparePerspective(){
+    // fovy  Y轴 垂直方向上的视角，通常以度数表示
+    //aspect 宽高比（aspect ratio），通常是视窗的宽度除以高度。
+    //zNear：近裁剪面距离，它必须是正数，并且定义了视锥的前端。
+    //zFar：远裁剪面距离，它定义了视锥的后端，并且必须大于zNear
+    perpareMatrix = glm::perspective(glm::radians(30.0f), ((float)app->getWidth())/ ((float)app->getHeight()), 0.1f, 1000.0f);
+}
+
 int main()
 {
-    if( !app->init(400, 800)){
+    if( !app->init(400, 400)){
         return -1;
     }
     
     prepareCamera();
-    prepareOrtho();
+    // prepareOrtho();
+    preparePerspective();
 
 //     //设置监听
     app->setResizeCallback(frameBufferSizeCallBack);
