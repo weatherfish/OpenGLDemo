@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(CGL3DDemo)
 
 # 定义一个选项
-# set(USE_M1 "True" CACHE STRING "Description of My USE_M1")
+set(USE_M1 "True" CACHE STRING "Description of My USE_M1")
 
 # 或者根据选项的值来编译不同的源文件
 if(USE_M1 STREQUAL "True")

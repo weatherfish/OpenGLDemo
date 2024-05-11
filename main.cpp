@@ -37,6 +37,7 @@ unsigned int vao;
 unsigned int vbo;
 unsigned int ebo;
 glm::mat4 transform(1.0f);
+glm::mat4 viewMatrix(1.0f);
 
 void prepare(){
  // 创建并绑定VAO
@@ -105,7 +106,9 @@ void render(){
     shader->setInt("sampler3", 2);
 
     shader->setMatrix4x4("transform", transform);
-    doRotation();
+    shader->setMatrix4x4("viewMatrix", viewMatrix);
+    
+    // doRotation();
 
     // glFrontFace(GL_CW);
     // glCullFace(GL_CULL_FACE);
@@ -129,11 +132,18 @@ void do_transform()
    transform = t1 * r1;
 }
 
+void prepareCamera(){
+    ///生成一个viewMatrix, eye:当前摄像机所在位置， center：当前摄像机看向的点，up 穹顶向量用于定义摄像机的垂直方向
+    viewMatrix = glm::lookAt(glm::vec3(0.5f, 0.0f, 0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
 int main()
 {
     if( !app->init(400, 800)){
         return -1;
     }
+    
+    prepareCamera();
 
 //     //设置监听
     app->setResizeCallback(frameBufferSizeCallBack);
