@@ -8,6 +8,7 @@ uniform float time;
 uniform float speed;
 uniform mat4 transform;
 uniform mat4 viewMatrix;
+uniform mat4 projectMatrix;
 
 out vec3 vColor;
 // out vec3 position;
@@ -18,7 +19,8 @@ void main()
     float dx = 0.3;
     float offsetX = sin(time * speed) * dx;
     float deltal = time * 0.2;
-    vec4 tp = viewMatrix * transform * vec4(aPosition, 1.0);
+    // vec4 tp = viewMatrix * transform * vec4(aPosition, 1.0);
+    vec4 tp = projectMatrix * viewMatrix * transform * vec4(aPosition, 1.0);
     gl_Position = tp;
     vColor = aColor * (cos(time) + 1.0f)/2.0f;
     // position = aPosition.xyz;

@@ -38,6 +38,7 @@ unsigned int vbo;
 unsigned int ebo;
 glm::mat4 transform(1.0f);
 glm::mat4 viewMatrix(1.0f);
+glm::mat4 orthoMatrix(1.0f);
 
 void prepare(){
  // 创建并绑定VAO
@@ -107,6 +108,7 @@ void render(){
 
     shader->setMatrix4x4("transform", transform);
     shader->setMatrix4x4("viewMatrix", viewMatrix);
+    shader->setMatrix4x4("projectMatrix", orthoMatrix);
     
     // doRotation();
 
@@ -137,6 +139,11 @@ void prepareCamera(){
     viewMatrix = glm::lookAt(glm::vec3(0.5f, 0.0f, 0.5f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 }
 
+void prepareOrtho(){
+    ///ortho 是摄像机坐标下面的
+    orthoMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, -2.0f);
+}
+
 int main()
 {
     if( !app->init(400, 800)){
@@ -144,6 +151,7 @@ int main()
     }
     
     prepareCamera();
+    prepareOrtho();
 
 //     //设置监听
     app->setResizeCallback(frameBufferSizeCallBack);
