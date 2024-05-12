@@ -190,7 +190,7 @@ void preparePerspective(){
     //zNear：近裁剪面距离，它必须是正数，并且定义了视锥的前端。
     //zFar：远裁剪面距离，它定义了视锥的后端，并且必须大于zNear
     // perpareMatrix = glm::perspective(glm::radians(30.0f), ((float)app->getWidth())/ ((float)app->getHeight()), 0.1f, 1000.0f);
-    camera->getProjectionMatrix();
+    perpareMatrix = camera->getProjectionMatrix();
 }
 
 int main()
