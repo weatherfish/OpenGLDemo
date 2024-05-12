@@ -11,6 +11,16 @@ OrthoCamera::OrthoCamera(glm::vec3 &position, glm::vec3 &up, glm::vec3 &right, f
     this->far = f;
 }
 
+OrthoCamera::OrthoCamera(float l, float r, float t, float b, float n, float f)
+{
+    this->left = l;
+    this->right = r;
+    this->top = t;
+    this->bottom = b;
+    this->near = n;
+    this->far = f;
+}
+
 OrthoCamera::~OrthoCamera()
 {
 

@@ -1,9 +1,16 @@
 
 #include "glFramework/core.h"
 #include "wrapper/checkError.h"
-#include "applicaiton/application.h"
 #include "glFramework/Shader.h"
 #include "glFramework/Texture.h"
+
+#include "applicaiton/application.h"
+#include "applicaiton/camera/camera.h"
+#include "applicaiton/camera/perspectiveCamera.h"
+#include "applicaiton/camera/camera_control.h"
+#include "applicaiton/camera/tracker_ball_control.h"
+#include "applicaiton/camera/game_camera_control.h"
+
 
 // // 顶点数据
 // float vertices[] = {
@@ -27,16 +34,6 @@ unsigned int indices[] = {
     // 2, 3, 0
 };
 
-void frameBufferSizeCallBack(int width, int height){
-    std::cout<<" width = "<<width<<" height = "<<height<<std::endl;
-}
-
-void keyCallback(int key, int scancode, int action, int mods){
-    if(key == GLFW_KEY_ESCAPE){
-        exit(0);
-    }
-}
-
 Texture *texture =nullptr;
 Texture *texture2 =nullptr;
 Texture *texture3 =nullptr;
@@ -48,6 +45,33 @@ glm::mat4 transform(1.0f);
 glm::mat4 viewMatrix(1.0f);
 glm::mat4 orthoMatrix(1.0f);
 glm::mat4 perpareMatrix(1.0f);
+glm::mat4 projectMatrix(1.0f);
+
+Camera *camera = nullptr;
+CameraControl *cameraControl = nullptr;
+
+void frameBufferSizeCallBack(int width, int height){
+    // std::cout<<" width = "<<width<<" height = "<<height<<std::endl;
+}
+
+void keyCallback(int key, int scancode, int action, int mods){
+    cameraControl->onKey(key, action, mods);
+    if(key == GLFW_KEY_ESCAPE){
+        exit(0);
+    }
+}
+
+void mouseCallback(int button, int action, int mods){
+    // std::cout<<"mouse " <<button <<", " << action << std::endl;
+    double x,y;
+    app->getCursorPosition(&x, &y);
+    cameraControl->onMouse(button, action, x, y);
+}
+
+void cursorCallback(double xpos, double ypos){
+    // std::cout<<"cursorCallback " <<xpos <<", "<< ypos <<std::endl;
+    cameraControl->onCursor(xpos, ypos);
+}
 
 void prepare(){
  // 创建并绑定VAO
@@ -146,8 +170,13 @@ void do_transform()
 }
 
 void prepareCamera(){
+
+    camera = new PerspectiveCamera(60.0f, (float) app->getWidth() / (float)app->getHeight(), 0.1f, 1000.0f);
+    // cameraControl = new CameraControl(camera);
+    cameraControl = new TrackerBallControl(camera);
+
     ///生成一个viewMatrix, eye:当前摄像机所在位置， center：当前摄像机看向的点，up 穹顶向量用于定义摄像机的垂直方向
-    viewMatrix = glm::lookAt(glm::vec3(3.0f, 0.0f, 1.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    viewMatrix = camera->getViewMatrix();
 }
 
 void prepareOrtho(){
@@ -160,7 +189,8 @@ void preparePerspective(){
     //aspect 宽高比（aspect ratio），通常是视窗的宽度除以高度。
     //zNear：近裁剪面距离，它必须是正数，并且定义了视锥的前端。
     //zFar：远裁剪面距离，它定义了视锥的后端，并且必须大于zNear
-    perpareMatrix = glm::perspective(glm::radians(30.0f), ((float)app->getWidth())/ ((float)app->getHeight()), 0.1f, 1000.0f);
+    // perpareMatrix = glm::perspective(glm::radians(30.0f), ((float)app->getWidth())/ ((float)app->getHeight()), 0.1f, 1000.0f);
+    camera->getProjectionMatrix();
 }
 
 int main()
@@ -175,7 +205,9 @@ int main()
 
 //     //设置监听
     app->setResizeCallback(frameBufferSizeCallBack);
-    app-> setKeyCallback(keyCallback);
+    app->setKeyCallback(keyCallback);
+    app->setMouseCallback(mouseCallback);
+    app->setCursorCallback(cursorCallback);
 //     //设置刷新
     glfwSwapInterval(1);
 
@@ -194,6 +226,7 @@ int main()
      // 渲染循环
     while (app->update())
     {  
+        cameraControl->update();
         render();
     }
 

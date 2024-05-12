@@ -44,6 +44,8 @@ bool Application::init(const uint32_t width, const uint32_t height){
 
     glfwSetFramebufferSizeCallback(window, realFbResizeCallback);
     glfwSetKeyCallback(window, realKeyCallback);
+    glfwSetMouseButtonCallback(window, realMouseCallback);
+    glfwSetCursorPosCallback(window, realCursorCallback);
     glfwSetWindowUserPointer(window, this);
 
 
@@ -67,13 +69,42 @@ void Application::destory(){
 
 void Application::realFbResizeCallback(GLFWwindow* window, int width, int height){
     Application *self = (Application *)glfwGetWindowUserPointer(window);
-    self->frameBufferResizeCallback(width, height);
+    if (self->frameBufferResizeCallback != nullptr)
+    {
+        self->frameBufferResizeCallback(width, height);
+    }
 }
 
 void Application::realKeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
     Application *self = (Application *)glfwGetWindowUserPointer(window);
-    self->keyCallback(key, scancode, action,  mods);
+    if (self->keyCallback != nullptr)
+    {
+        self->keyCallback(key, scancode, action,  mods);
+    }
+}
+
+void Application::realMouseCallback(GLFWwindow* window, int button, int action, int mods)
+{
+    Application *self = (Application *)glfwGetWindowUserPointer(window);
+    if (self->mouseCallback != nullptr)
+    {
+        self->mouseCallback(button, action,  mods);
+    }
+}
+
+void Application::realCursorCallback(GLFWwindow* window, double xpos, double ypos)
+{
+    Application *self = (Application *)glfwGetWindowUserPointer(window);
+    if(self->cursorCallback != nullptr)
+    {
+        self->cursorCallback(xpos, ypos);
+    }
+}
+
+void Application::getCursorPosition(double *x, double *y)
+{
+    glfwGetCursorPos(window, x, y);
 }
 
 Application::Application()

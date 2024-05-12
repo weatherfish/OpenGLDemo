@@ -9,6 +9,14 @@ PerspectiveCamera::PerspectiveCamera(glm::vec3 &position, glm::vec3 &up, glm::ve
     this->far = far;
 }
 
+PerspectiveCamera::PerspectiveCamera(float fovy, float aspect, float near, float far)
+{
+    this->fovy = fovy;
+    this->aspect = aspect;
+    this->near = near;
+    this->far = far;
+}
+
 PerspectiveCamera::~PerspectiveCamera()
 {
 }

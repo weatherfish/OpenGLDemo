@@ -11,6 +11,7 @@ public:
     
 public:
     Camera(glm::vec3 &position, glm::vec3 &up, glm::vec3 &right);
+    Camera();
     ~Camera();
 
     glm::mat4 getViewMatrix();

@@ -12,6 +12,7 @@ private:
 
 public:
     PerspectiveCamera(glm::vec3 &position, glm::vec3 &up, glm::vec3 &right, float fovy, float aspect, float near, float far);
+    PerspectiveCamera(float fovy, float aspect, float near, float far);
     ~PerspectiveCamera();
 
     glm::mat4 getProjectionMatrix() override;

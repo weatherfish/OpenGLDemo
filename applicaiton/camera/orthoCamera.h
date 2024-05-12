@@ -14,6 +14,7 @@ private:
 
 public:
     OrthoCamera(glm::vec3 &position, glm::vec3 &up, glm::vec3 &right, float l, float r, float t, float b, float n, float f);
+    OrthoCamera(float l, float r, float t, float b, float n, float f);
     ~OrthoCamera();
 
     glm::mat4 getProjectionMatrix() override;
