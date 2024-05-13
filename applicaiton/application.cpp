@@ -43,7 +43,7 @@ bool Application::init(const uint32_t width, const uint32_t height){
     }
 
     glfwSetFramebufferSizeCallback(window, realFbResizeCallback);
-    glfwSetKeyCallback(window, realKeyCallback);
+    glfwSetKeyCallback(window, realKeyCallback);  //用于设置键盘按键的回调函数
     glfwSetMouseButtonCallback(window, realMouseCallback);
     glfwSetCursorPosCallback(window, realCursorCallback);
     glfwSetWindowUserPointer(window, this);

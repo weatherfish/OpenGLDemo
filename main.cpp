@@ -13,25 +13,25 @@
 
 
 // // 顶点数据
-// float vertices[] = {
-//     -0.5f, -1.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
-//      0.5f, -1.0f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
-//      0.5f,  1.0f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
-//      -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
-// };
+float vertices[] = {
+    -0.5f, -1.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
+     0.5f, -1.0f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
+     0.5f,  1.0f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
+     -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
+};
 
 // 顶点数据
-float vertices[] = {
-    -1.0f,  0.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
-     1.0f,  0.0f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
-     0.0f,  1.0f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
-    //  -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
-};
+// float vertices[] = {
+//     -1.0f,  0.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
+//      1.0f,  0.0f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
+//      0.0f,  1.0f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
+//     //  -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
+// };
 
 // 索引数据
 unsigned int indices[] = {
     0, 1, 2, // 三角形的三个顶点索引
-    // 2, 3, 0
+    2, 3, 0
 };
 
 Texture *texture =nullptr;
@@ -153,8 +153,8 @@ void render(){
 
     // glUniform4f(location, 0.2, 0.3f, 0.8f, 1.0f);
     // 绘制三角形
-    // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    // glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
     shader->end();
 }
