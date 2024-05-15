@@ -12,12 +12,12 @@
 #include "applicaiton/camera/game_camera_control.h"
 
 
-// // 顶点数据
+// // 顶点数据  如果是4维向量表示3维数据，则w=1表示一个点，w=0表示一个方向
 float vertices[] = {
     -0.5f, -1.0f, 0.0f, 0.0, 0.0, 0.0f, 0.0f, 1.0f,// 左下角
      0.5f, -1.0f, 0.0f, 1.0, 0.0, 0.0f, 1.0f, 0.0f,// 右下角
      0.5f,  1.0f, 0.0f, 1.0, 1.0, 1.0f, 0.0f, 0.0f,// 右上
-     -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
+    -0.5f, 1.0f, 0.0f, 0.0, 1.0, 1.0f, 1.0f, 0.0f, // 左上
 };
 
 // 顶点数据
@@ -38,9 +38,11 @@ Texture *texture =nullptr;
 Texture *texture2 =nullptr;
 Texture *texture3 =nullptr;
 Shader *shader = nullptr;
+
 unsigned int vao;
 unsigned int vbo;
 unsigned int ebo;
+
 glm::mat4 transform(1.0f);
 glm::mat4 viewMatrix(1.0f);
 glm::mat4 orthoMatrix(1.0f);
@@ -124,8 +126,8 @@ void doRotation()
     // transform = glm::rotate(transform, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));//旋转
 
     ///先旋转再平移
-    transform = glm::rotate(transform, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));//旋转
-    transform = glm::translate(transform, glm::vec3(0.01f, 0.0f, 0.0f));//旋转
+    // transform = glm::rotate(transform, glm::radians(angle), glm::vec3(0.0f, 0.0f, 1.0f));//旋转
+    // transform = glm::translate(transform, glm::vec3(0.01f, 0.0f, 0.0f));//旋转
 }
 
 void render(){
@@ -161,17 +163,17 @@ void render(){
 
 void do_transform()
 {
-   glm::mat4 r1 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f)); //旋转 以原点为中心旋转
-   glm::mat4 t1 = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.0f, 0.0f));    //平移 
-   glm::mat4 s1 = glm::scale(glm::mat4(1.0f), glm::vec3(0.6f, 1.0f, 1.0f));    //缩放:将点变成原来的多少倍
+//    glm::mat4 r1 = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f)); //旋转 以原点为中心旋转
+//    glm::mat4 t1 = glm::translate(glm::mat4(1.0f), glm::vec3(0.5f, 0.0f, 0.0f));    //平移 
+//    glm::mat4 s1 = glm::scale(glm::mat4(1.0f), glm::vec3(0.6f, 1.0f, 1.0f));    //缩放:将点变成原来的多少倍
 
-   ///组合变换，先做的变换位于最右边。 先旋转，再平移
-   transform = t1 * r1;
+//    ///组合变换，先做的变换位于最右边。 先旋转，再平移
+//    transform = t1 * r1;
 }
 
 void prepareCamera(){
 
-    camera = new PerspectiveCamera(60.0f, (float) app->getWidth() / (float)app->getHeight(), 0.1f, 1000.0f);
+    camera = new PerspectiveCamera(90.0f, (float) app->getWidth() / (float)app->getHeight(), 0.1f, 1000.0f);
     // cameraControl = new CameraControl(camera);
     cameraControl = new TrackerBallControl(camera);
 
@@ -181,7 +183,7 @@ void prepareCamera(){
 
 void prepareOrtho(){
     ///ortho 是摄像机坐标下面的
-    orthoMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, -2.0f);
+    // orthoMatrix = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 2.0f, -2.0f);
 }
 
 void preparePerspective(){
