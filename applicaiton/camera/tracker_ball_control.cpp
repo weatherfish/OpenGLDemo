@@ -18,7 +18,8 @@ void TrackerBallControl::onMouse(int button, int action, double xpos, double ypo
 
 void TrackerBallControl::onCursor(float xpos, float ypos)
 {
-    // std::cout<<"onCursor"<< xpos <<","<<ypos<<std::endl;
+    std::cout<<"onCursor"<< xpos <<","<<ypos<<std::endl;
+    camera->getViewMatrix({sensitivity * (xpos - currentX), sensitivity * (ypos - currentY), 1.0f});
     
 }
 

@@ -16,16 +16,18 @@ Camera::~Camera()
 
 }
 
+glm::mat4 Camera::getViewMatrix(glm::vec3 pos, glm::vec3 up, glm::vec3 right)
+{
+    positionVec3 = pos;
+    upVec3 = up;
+    rightVec3 = right;
 
- glm::mat4 Camera::getViewMatrix()
- {
     glm::vec3 eye = positionVec3;
-
     glm::vec3 front = glm::cross(upVec3, rightVec3);
     glm::vec3 center = positionVec3 + front;
 
     return glm::lookAt(eye, center, upVec3);
- }
+}
 
 glm::mat4 Camera::getProjectionMatrix(){
     return glm::identity<glm::mat4>();

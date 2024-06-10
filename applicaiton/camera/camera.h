@@ -14,7 +14,7 @@ public:
     Camera();
     ~Camera();
 
-    glm::mat4 getViewMatrix();
+    glm::mat4 getViewMatrix(glm::vec3 pos = {0.0f, 0.0f, 1.0f}, glm::vec3 up = {0.0f, 1.0f, 0.0f}, glm::vec3 right = {1.0f, 0.0f, 0.0f});
     virtual glm::mat4 getProjectionMatrix();
 };
 

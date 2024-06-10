@@ -6,7 +6,7 @@
 
 class CameraControl
 {
-private:
+protected:
     bool leftMouseDown = false;
     bool rightMouseDown = false;
 

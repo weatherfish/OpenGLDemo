@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.12)
-project(CGL3DDemo)
+cmake_minimum_required(VERSION 3.22)
+project(TestOpenGL)
 
 # 定义一个选项
 # set(USE_M1 "True" CACHE STRING "Description of My USE_M1")

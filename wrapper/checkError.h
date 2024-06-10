@@ -1,6 +1,6 @@
 #pragma once
 
-#include<assert.h>
+// #include <assert.h>
 
 #ifdef DEBUG
 #define GLCall(func) GLClearError();func;assert(GLLogCheck(#func));
